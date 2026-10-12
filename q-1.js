@@ -1,39 +1,108 @@
 
 // ## Question 1: Value Detective · 10 marks
 
-// Write a function `describeValue` that takes **any value** and returns a string with two pieces of information joined by a space, a pipe, and another space:
 
-// ```
-// <type of the value> | <truthy or falsy>
-// ```
-
-// Examples:
-
-// | Call | Returns |
-// | --- | --- |
-// | `describeValue("hello")` | `"string \| truthy"` |
-// | `describeValue("")` | `"string \| falsy"` |
-// | `describeValue(25)` | `"number \| truthy"` |
-// | `describeValue(0)` | `"number \| falsy"` |
-// | `describeValue(true)` | `"boolean \| truthy"` |
-// | `describeValue(null)` | `"object \| falsy"` |
-// | `describeValue(undefined)` | `"undefined \| falsy"` |
-
-// Watch out for these three. Think before you answer:
-
-
-// * `describeValue("0")` — a string that looks like zero
-// * `describeValue(NaN)` — what does `typeof NaN` give?
-// * `describeValue(null)` — remember the strange thing we saw in class
-
-// > Hint: you do not need a long `if` chain to find the type. `typeof` gives it to you. And a value can be put straight inside an `if` to test truthy or falsy.
-
-// ---
-
-
-// condition ? valueIfTrue : valueIfFalse
 function describeValue(value) {
     return typeof value + " | " + (value ? "truthy" : "falsy");
 }
 
 console.log(describeValue("Ratul"));
+
+// Question 2: Bangladesh Weekend Machine · 10 marks
+// function getDayType(){
+//     if () { }
+// }
+
+function getDayType(day) {
+    switch (day.toLowerCase()) {
+        case "friday":
+        case "saturday":
+            return "Weekend";
+
+        case "sunday":
+        case "monday":
+        case "tuesday":
+        case "wednesday":
+        case "thursday":
+            return "Working Day";
+
+        default:
+            return "Invalid Day";
+    }
+}
+console.log(getDayType("friday"))
+
+
+
+// Question 3: Username Gatekeeper · 10 marks
+
+function validateUsername(name) {
+    if (name.length< 4) {
+
+        return "Too Short";
+    }  
+    else if (name.includes(" ")) {
+        return "No Space Allowed";
+    } 
+    else if (name.toLowerCase().includes("admin")) {
+        return "Reserved Word";
+    } else {
+        return "Available";
+    }
+}
+console.log(validateUsername("Billu123"));
+
+
+
+// Question 4: Dhaka CNG Fare Meter · 15 marks
+
+function getCngFare(distance, isNight=false, waitingMinutes=0){
+    let fare=50; ///minimum fare is 50 tk
+    if(distance>2){
+        // Every km after the first 2 km costs 15 taka.
+        fare+=(distance-2)*15;
+
+    }
+    // Waiting charge: 2 
+    fare+=waitingMinutes*2;
+
+    if (isNight) {
+        fare *= 1.2;
+    }
+
+    return fare;
+}
+
+console.log(getCngFare(5));
+console.log(getCngFare(5, false, 10));
+
+
+// Question 5: Run Chase Commentator · 15 marks
+const getChaseVerdict = (target, scored, ballsLeft)=>{
+    let  runsNeeded = target - scored;
+    if(runsNeeded<=0){
+        return "Won";
+
+
+    }
+    if(ballsLeft<=0){
+        return "Lost"
+    }
+    
+        let requiredRate = (runsNeeded / ballsLeft) * 6;
+        let verdict;
+        if(requiredRate<=6){
+            verdict="Comfortable";
+
+        }
+        else  if(requiredRate<=12){
+            verdict="Tough";
+
+        }
+        else{ verdict="Almost Impossible"};
+    
+    return `Need ${runsNeeded} runs in ${ballsLeft} balls | ${verdict}`;
+
+}
+
+console.log(getChaseVerdict(150, 149, 1));
